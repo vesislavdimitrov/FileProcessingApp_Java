@@ -28,6 +28,7 @@ public class Menu {
                    case 2 -> Process.swapLines(fileLines, scan, filePath);
                    case 3 -> Process.swapWords(fileLines,filePath,scan);
                    case 0 -> System.out.println("Processing finished! Exiting application...");
+                   default-> System.err.println("Please enter a valid menu option!");
                }
                fileLines = new ArrayList<>();
                Scanner fScan = new Scanner(file);
