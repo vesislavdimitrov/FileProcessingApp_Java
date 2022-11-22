@@ -15,7 +15,7 @@ public class Main {
 
         Scanner scan = new Scanner(System.in);
 
-        //textfile.txt
+        //File name: textfile.txt
         System.out.println("Enter file name: ");
         String fileName = scan.nextLine();
         final String DIR = System.getProperty("user.dir");
