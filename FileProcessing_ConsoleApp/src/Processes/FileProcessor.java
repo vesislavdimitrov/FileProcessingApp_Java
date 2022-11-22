@@ -22,7 +22,6 @@ public class FileProcessor {
     public String getFilePath() {
         return filePath;
     }
-
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
@@ -32,20 +31,24 @@ public class FileProcessor {
             throw new InvalidFileFormatException();
         }
     }
+
     public  void scanFile() throws IOException {
 
-        BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()));
-        String line;
-        while ((line = br.readLine()) != null) {
-            fileLines.add(line);
+        try(BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                this.fileLines.add(line);
+            }
         }
     }
+
     public  void readFile() throws IOException {
 
-        BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()));
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
+        try(BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
         }
     }
 }
