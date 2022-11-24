@@ -2,22 +2,24 @@ package Processes;
 import Exceptions.InvalidFileFormatException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileProcessor {
 
-    private ArrayList<String> fileLines;
+    private  ArrayList<ArrayList<String>> fileData;
     private String filePath;
 
-    public FileProcessor(ArrayList<String> fileLines, String filePath) {
-        this.fileLines = fileLines;
+    public FileProcessor(ArrayList<ArrayList<String>>fileData, String filePath) {
+        this.fileData = fileData;
         this.filePath = filePath;
     }
 
-    public ArrayList<String> getFileLines() {
-        return fileLines;
+    public ArrayList<ArrayList<String>> getFileData() {
+        return fileData;
     }
-    public void setFileLines(ArrayList<String> fileLines) {
-        this.fileLines = fileLines;
+
+    public void setFileData(ArrayList<ArrayList<String>> fileData) {
+        this.fileData = fileData;
     }
     public String getFilePath() {
         return filePath;
@@ -31,14 +33,22 @@ public class FileProcessor {
             throw new InvalidFileFormatException();
         }
     }
+    public  void scanFile(){
 
-    public  void scanFile() throws IOException {
-
-        try(BufferedReader br = new BufferedReader(new FileReader(this.getFilePath()))){
-            String line;
-            while ((line = br.readLine()) != null) {
-                this.fileLines.add(line);
+        File file = new File(this.getFilePath());
+        try (Scanner lineScanner = new Scanner(file)){
+            int lineIndex = 0;
+            while (lineScanner.hasNextLine()) {
+                fileData.add(new ArrayList<>());
+                try(Scanner wordScanner = new Scanner(lineScanner.nextLine())){
+                    while (wordScanner.hasNext()) {
+                        fileData.get(lineIndex).add(wordScanner.next());
+                    }
+                    lineIndex++;
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
