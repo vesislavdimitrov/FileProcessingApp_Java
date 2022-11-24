@@ -2,7 +2,6 @@ import Exceptions.InvalidFileFormatException;
 import Processes.FileProcessor;
 import Processes.LineSwapper;
 import Processes.WordSwapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class Main {
         try {
             fileProcessor.checkFileFormat(fileProcessor.getFilePath());
             fileProcessor.scanFile();
-        } catch (InvalidFileFormatException | IOException e) {
+        } catch (InvalidFileFormatException e) {
             throw new RuntimeException(e);
         }
 
@@ -48,12 +47,12 @@ public class Main {
                         System.out.println("File content: ");
                         fileProcessor.readFile();
                     }
-                    case 2 -> lineSwapper.swapLines(fileProcessor.getFileLines(), fileProcessor.getFilePath(),scan);
-                    case 3 -> wordSwapper.swapWords(fileProcessor.getFileLines(),fileProcessor.getFilePath(),scan);
+                    case 2 -> lineSwapper.swapLines(fileProcessor.getFileData(), fileProcessor.getFilePath(),scan);
+                    case 3 -> wordSwapper.swapWords(fileProcessor.getFileData(),fileProcessor.getFilePath(),scan);
                     case 0 -> System.out.println("Processing finished! Exiting application...");
                     default-> System.err.println("Please enter a valid menu option!");
                 }
-                fileProcessor.getFileLines().clear();
+                fileProcessor.getFileData().clear();
                 fileProcessor.scanFile();
 
             } while (c != 0);
