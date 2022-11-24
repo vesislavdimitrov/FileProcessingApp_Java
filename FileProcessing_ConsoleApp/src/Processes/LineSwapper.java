@@ -1,10 +1,11 @@
 package Processes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LineSwapper {
-    public void swapLines(ArrayList<String> fileLines, String filePath, Scanner scan) {
+    public void swapLines(ArrayList<ArrayList<String>> fileData, String filePath, Scanner scan) throws IOException {
 
         Writer writer = new Writer();
 
@@ -12,7 +13,7 @@ public class LineSwapper {
         int firstLine;
         while (true){
             firstLine = scan.nextInt()-1;
-            if(firstLine >=0 && firstLine <fileLines.size()){
+            if(firstLine >=0 && firstLine <fileData.size()){
                 break;
             }
             System.err.println("Please enter a valid line!");
@@ -20,20 +21,20 @@ public class LineSwapper {
         int secondLine;
         while (true){
             secondLine = scan.nextInt()-1;
-            if(secondLine >=0 && secondLine <fileLines.size()){
+            if(secondLine >=0 && secondLine <fileData.size()){
                 break;
             }
             System.err.println("Please enter a valid line!");
         }
         try{
-            fileLines.set(firstLine, fileLines.set(secondLine, fileLines.get(firstLine)));
+            fileData.set(firstLine, fileData.set(secondLine, fileData.get(firstLine)));
             System.out.println("Successfully swapped lines");
         }
         catch (Exception e){
             System.err.println("Error swapping lines!");
         }
 
-        writer.writeToFile(fileLines,filePath);
+        writer.writeToFile(fileData,filePath);
     }
 
 }
